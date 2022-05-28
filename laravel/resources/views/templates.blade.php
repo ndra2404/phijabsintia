@@ -17,6 +17,7 @@
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="{{url('')}}/assets/css/style.css" />
         <link rel="stylesheet" href="{{url('')}}/assets/css/responsive.css" />
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
     </head>
 
     <body class="template-index index-demo4">
@@ -46,12 +47,19 @@
                                 <ul id="siteNav" class="site-nav medium left hidearrow">
                                     <li class="lvl1"><a href="{{url('')}}">Home <i class="an an-angle-down-l"></i></a></li>
                                     <li class="lvl1"><a href="{{url('/product')}}">Product <i class="an an-angle-down-l"></i></a></li>
+                                    @if(Auth::check())
+                                    @if(Auth::user()->level=='admin')
                                     <li class="lvl1 parent dropdown"><a href="#">Master <i class="an an-angle-down-l"></i></a>
                                         <ul class="dropdown">
                                             <li><a href="{{url('/products')}}" class="site-nav">Product</a></li>
                                             <li><a href="{{url('/products/type')}}" class="site-nav">Product Type</a></li>
+                                            <li><a href="{{url('/pesanan')}}" class="site-nav">Pesanan</a></li>
                                         </ul>
                                     </li>
+                                    @else
+                                    <li class="lvl1"><a href="{{url('/account')}}">Account <i class="an an-angle-down-l"></i></a></li>
+                                    @endif
+                                    @endif
                                 </ul>
                             </nav>
                         </div>
@@ -64,8 +72,8 @@
                                 <ul class="user-links">
                                     @guest
                                         <li><a href="{{url('login')}}">Login</a></li>
-                                        <li><a href="{{url('register')}}">Sign Up</a></li>
                                     @else
+                                        <li><a href="{{url('account')}}">Dashboard</a></li>
                                         <li><a href="{{url('logout')}}">Logout</a></li>
                                     @endguest
                                 </ul>
@@ -74,7 +82,12 @@
                             <!--Minicart Drawer-->
                             <div class="header-cart iconset">
                                 <a href="#" class="site-header__cart btn-minicart" data-bs-toggle="modal" data-bs-target="#minicart-drawer">
-                                    <i class="icon an an-sq-bag"></i><span class="site-cart-count counter d-flex-center justify-content-center position-absolute translate-middle rounded-circle">2</span><span class="tooltip-label">Cart</span>
+                                    <i class="icon an an-sq-bag"></i><span class="site-cart-count counter d-flex-center justify-content-center position-absolute translate-middle rounded-circle">0</span><span class="tooltip-label">Cart</span>
+                                </a>
+                            </div>
+                            <div class="header-cart iconset">
+                                <a href="{{url('chat')}}" class="site-header__cart btn-minicart">
+                                    <i class="icon an an-laptop-r"></i><span class="tooltip-label">Chat</span>
                                 </a>
                             </div>
                             <!--End Minicart Drawer-->
@@ -93,8 +106,6 @@
                     <li class="lvl1 bottom-link"><a href="login.html">Product</a></li>
                     <li class="lvl1 bottom-link"><a href="login.html">Login</a></li>
                     <li class="lvl1 bottom-link"><a href="register.html">Signup</a></li>
-                    <li class="lvl1 bottom-link"><a href="my-wishlist.html">Wishlist</a></li>
-                    <li class="lvl1 bottom-link"><a href="compare-style1.html">Compare</a></li>
                     <li class="help bottom-link"><b>NEED HELP?</b><br>Call: 0852-9580-8597</li>
                 </ul>
             </div>
@@ -153,26 +164,25 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div id="cart-drawer" class="block block-cart">
-                            <div class="minicart-header">
-                                <a href="javascript:void(0);" class="close-cart" data-bs-dismiss="modal" aria-label="Close"><i class="an an-times-r" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i></a>
-                                <h4 class="fs-6 text-black">Your cart</h4>
-                            </div>
-                            <div class="minicart-content">
-                                <ul class="clearfix" id="listcart">
+                            <form action="{{url('checkout')}}" method="post">
+                                @csrf
+                                <div class="minicart-header">
+                                    <a href="javascript:void(0);" class="close-cart" data-bs-dismiss="modal" aria-label="Close"><i class="an an-times-r" aria-hidden="true" data-bs-toggle="tooltip" data-bs-placement="left" title="Close"></i></a>
+                                    <h4 class="fs-6 text-black">Your cart</h4>
+                                </div>
+                                <div class="minicart-content">
+                                    <ul class="clearfix" id="listcart">
 
-                                </ul>
-                            </div>
-                            <div class="minicart-bottom text-black">
-                                <div class="shipinfo text-center mb-3 text-uppercase">
-                                    <p class="freeShipMsg"><i class="an an-truck fs-5 me-2 align-middle"></i>SPENT <b>$199.00</b> MORE FOR FREE SHIPPING</p>
+                                    </ul>
                                 </div>
-                                <div class="subtotal">
-                                    <span>Total:</span>
-                                    <span class="product-price">$93.13</span>
+                                <div class="minicart-bottom text-black">
+                                    <div class="subtotal">
+                                        <span>Total:</span>
+                                        <span class="product-price"></span>
+                                    </div>
+                                    <button type="submit" class="w-100 p-2 my-2 btn btn-secondary proceed-to-checkout">Proceed to Checkout</button>
                                 </div>
-                                <a href="checkout-style2.html" class="w-100 p-2 my-2 btn btn-secondary proceed-to-checkout">Proceed to Checkout</a>
-                                <a href="cart-style2.html" class="w-100 btn btn-outline-primary cart-btn">View Cart</a>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -380,26 +390,30 @@
                 success:function(response){
                     $('.counter').html(response.count);
                     var listcart = "";
+                    var totalprice = 0;
                     $.each(response.data, function(k, v) {
+                        totalprice = totalprice+v.product_price*v.qty;
                         listcart =listcart+'<li class="item d-flex justify-content-center align-items-center">'+
                                         '<a class="product-image" href="product-layout1.html">'+
-                                            '<img class="blur-up lazyload" src="/assets/images/products/cart-product-img1.jpg" data-src="{{url('')}}/assets/images/products/cart-product-img1.jpg" alt="image" title="">'+
+                                            '<img class="blur-up lazyload" src="/assets/images/'+v.product_thumb1+'" data-src="{{url('')}}/assets/images/'+v.product_thumb1+'" alt="image" title="">'+
                                         '</a>'+
                                         '<div class="product-details">'+
-                                            '<a class="product-title" href="product-layout1.html">Floral Crop Top</a>'+
-                                            '<div class="variant-cart mb-1">Black / XL</div>'+
+                                            '<a class="product-title" href="product-layout1.html">'+v.product_name+'</a>'+
+                                            '<div class="variant-cart mb-1">'+v.product_type+'</div>'+
                                             '<div class="priceRow">'+
-                                                '<div class="product-price">'+
-                                                    '<span class="money">$59.00</span>'+
+                                                '<div class="product-prices">'+
+                                                    '<span class="money">'+v.product_price+'</span>'+
                                                 '</div>'+
                                             '</div>'+
                                         '</div>'+
                                         '<div class="qtyDetail text-center">'+
                                             '<div class="wrapQtyBtn">'+
                                                 '<div class="qtyField">'+
-                                                    '<a class="qtyBtn minus" href="javascript:void(0);"><i class="icon an an-minus-r" aria-hidden="true"></i></a>'+
-                                                    '<input type="text" name="quantity" value="1" class="qty rounded-0">'+
-                                                    '<a class="qtyBtn plus" href="javascript:void(0);"><i class="icon an an-plus-l" aria-hidden="true"></i></a>'+
+                                                    '<a class="qtyBtn qtyBtna minus" href="javascript:void(0);"><i class="icon an an-minus-r" aria-hidden="true"></i></a>'+
+                                                    '<input type="text" name="quantity['+v.id+']" data-price="'+v.product_price+'" value="'+v.qty+'" class="qtya rounded-0">'+
+                                                    '<input type="hidden" name="pid['+v.id+']" data-price="'+v.product_price+'" value="'+v.product_id+'">'+
+                                                    '<input type="hidden" name="price['+v.id+']" data-price="'+v.product_price+'" value="'+v.product_price+'">'+
+                                                    '<a class="qtyBtn qtyBtna plus" href="javascript:void(0);"><i class="icon an an-plus-l" aria-hidden="true"></i></a>'+
                                                 '</div>'+
                                             '</div>'+
                                             '<a href="#" class="edit-i remove"><i class="icon an an-edit-l" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit"></i></a>'+
@@ -408,12 +422,126 @@
                                     '</li>';
                     });
                     $('#listcart').html(listcart);
+                    $(".product-price").html('IDR. '+totalprice);
                 },
                 error: function(error) {
                     console.log(error);
                 }
                 });
                 @endguest
+            </script>
+            <script>
+        //         $(".qtyBtn").on("click", function () {
+
+        // });
+            $(document).on("click",".qtyBtna",function() {
+                    var qtyField = $(this).parent(".qtyField"),
+                    oldValue = $(qtyField).find(".qtya").val(),
+                    newVal = 1;
+                    if ($(this).is(".plus")) {
+                        newVal = parseInt(oldValue) + 1;
+                    } else if (oldValue > 1) {
+                        newVal = parseInt(oldValue) - 1;
+                    }
+                    $(qtyField).find(".qtya").val(newVal);
+
+                    var sum = 0;
+                    $('.qtya').each(function(index, item){
+                        sum += parseFloat(this.value*$(item).data('price'));
+                    });
+                    $(".product-price").html('IDR. '+sum);
+            });
+            @guest
+            @else
+            @if(Auth::user()->level != 'admin')
+                $("#senderid").val('{{Auth::user()->id}}');
+                getlistpesan({{Auth::user()->id}})
+            @endif
+            $(document).on("click",".sendername",function() {
+                getlistpesan(this.id)
+                $("#senderid").val(this.id)
+            });
+            // $(document).ready(function(){
+            //     setInterval(getlistpesan(2),1000);
+            // });
+            setInterval(function() {
+                @if(Auth::user()->level != 'admin')
+                    getlistpesan({{Auth::user()->id}})
+                    $("#senderid").val('{{Auth::user()->id}}');
+                @else
+                    getlistpesan($("#senderid").val())
+                @endif
+            }, 10000);
+
+            function getlistpesan(id){
+                $.ajax({
+                url: "{{url('api/getList')}}/"+id,
+                type:"get",
+                success:function(response){
+                    var listcart = "";
+                    var cls = "";
+                    $.each(response.data, function(k, v) {
+                        listcart = listcart +"";
+                            if(v.is_sender=='false'){
+                                @if(Auth::user()->level=='admin')
+                                    cls='receiver';
+                                @else
+                                    cls='sender';
+                                @endif
+                            }else{
+                                @if(Auth::user()->level!='admin')
+                                    cls='receiver';
+                                @else
+                                    cls='sender';
+                                @endif
+                            }
+                            listcart = listcart + '<div class="col-sm-12 message-main-'+cls+'">'+
+                                                    '<div class="'+cls+'">'+
+                                                        '<div class="message-text"> '+v.message+'</div>'+
+                                                        '<span class="message-time pull-right">'+v.datesend+'</span>'+
+                                                    '</div>'+
+                                                '</div>';
+                    });
+                    $('#cpesan').html(listcart);
+                },
+                error: function(error) {
+                    console.log(error);
+                },
+                complete:function(data){
+                    //setTimeout(getlistpesan(id),5000);
+                }
+                });
+            }
+            $(".save-data").click(function(event){
+                event.preventDefault();
+
+                let pesan = $("#comment").val();
+                let sender = $("#senderid").val();
+                let message = $("input[name=message]").val();
+                let _token   = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                url: "{{url('api/chat')}}",
+                type:"POST",
+                data:{
+                    message:pesan,
+                    level:"{{Auth::user()->level}}",
+                    sender:sender,
+                    _token: _token
+                },
+                success:function(response){
+                    if(response.status=='success') {
+                        getlistpesan($("#senderid").val())
+                        $("#comment").val("")
+                    }
+                },
+                error: function(error) {
+                    console.log(error);
+
+                }
+            });
+            })
+            @endguest
             </script>
         </div>
         <!--End Page Wrapper-->

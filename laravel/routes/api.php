@@ -14,3 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/cart/{id}', 'App\Http\Controllers\CartController@getCart');
+
+Route::get('/getList/{id}', 'App\Http\Controllers\ChatController@getList');
+Route::any('/chat', 'App\Http\Controllers\ChatController@sendchat');

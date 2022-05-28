@@ -50,7 +50,7 @@
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="CustomerFirstName" >Product Stock<span class="required">*</span></label>
+                                            <label for="CustomerFirstName" >Product Price<span class="required">*</span></label>
                                             <input id="CustomerFirstName" type="number" name="stock" placeholder="Stock" required="">
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="CustomerFirstName" >Thumbnail 2</label>
+                                            <label for="CustomerFirstName" >Thumbnail 1</label>
                                             <div class="input-group">
                                                 <input type="file" name="thumb" class="form-control" id="customFile">
                                             </div>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label for="CustomerFirstName" >Thumbnail 1</label>
+                                            <label for="CustomerFirstName" >Thumbnail 2</label>
                                             <div class="input-group">
                                                 <input type="file" name="thumb2" class="form-control" id="customFile">
                                             </div>

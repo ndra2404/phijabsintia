@@ -13,6 +13,14 @@
                 <div class="container">
                     <div class="row">
                         <!--Main Content-->
+                        @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+
+                    </button>
+                    <strong>Information!</strong> {{session()->get("success")}}.
+                </div>
+        @endif
                         <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
                             <!--Toolbar-->
                             <div class="toolbar mt-0">
@@ -81,7 +89,7 @@
                                                 </div>
                                                 <!--End Product Name-->
                                                 <!--Product Price-->
-                                                <div class="product-price">
+                                                <div class="product-pricet">
                                                     <span class="price">IDR {{number_format($product->product_price,2)}}</span>
                                                 </div>
                                                 <!--End Product Price-->
@@ -103,22 +111,7 @@
                                                 </ul> -->
                                                 <!--End Color Variant-->
                                                 <!-- Product Button -->
-                                                <div class="button-action d-flex">
-                                                    <div class="addtocart-btn">
-                                                        <form class="addtocart" action="#" method="post">
-                                                            <a class="btn pro-addtocart-popup" href="#pro-addtocart-popup"><i class="icon hidden an an-cart-l"></i>Add To Cart</a>
-                                                        </form>
-                                                    </div>
-                                                    <div class="quickview-btn">
-                                                        <a class="btn btn-icon quick-view quick-view-popup" href="javascript:void(0)" data-toggle="modal" data-target="#content_quickview"><i class="icon an an-search-l"></i> <span class="tooltip-label top">Quick View</span></a>
-                                                    </div>
-                                                    <div class="wishlist-btn">
-                                                        <a class="btn btn-icon wishlist add-to-wishlist" href="my-wishlist.html"><i class="icon an an-heart-l"></i> <span class="tooltip-label top">Add To Wishlist</span></a>
-                                                    </div>
-                                                    <div class="compare-btn">
-                                                        <a class="btn btn-icon compare add-to-compare" href="compare.html"><i class="icon an an-sync-ar"></i> <span class="tooltip-label top">Add to Compare</span></a>
-                                                    </div>
-                                                </div>
+
                                                 <!-- End Product Button -->
                                             </div>
                                             <!--End Product Details-->

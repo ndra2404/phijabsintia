@@ -27,34 +27,39 @@
                     <strong>Information!</strong> {{session()->get("success")}}.
                 </div>
         @endif
-        <a href="{{url('products/add')}}" class="btn btn-small rounded-1 text-nowrap">Add</a>
         <form action="#" method="post">
             <div class="wishlist-table table-content text-nowrap table-responsive py-2">
                 <table class="table table-bordered align-middle">
                     <thead class="bg-light thead-bg">
                         <tr>
-                            <th class="product-name text-center alt-font">Action</th>
-                            <th class="product-prices text-center alt-font">Images</th>
-                            <th class="product-name alt-font">Product</th>
-                            <th class="stock-status text-center alt-font">Sku</th>
-                            <th class="stock-status text-center alt-font">Stock Status</th>
-                            <th class="product-prices text-center alt-font">Unit Price</th>
+                            <th class="product-prices text-center alt-font">Order no</th>
+                            <th class="product-name alt-font">Order date</th>
+                            <th class="stock-status text-center alt-font">Status</th>
+                            <th class="stock-status text-center alt-font">Order Total</th>
+                            <th class="product-prices text-center alt-font">Remarks</th>
+                            <th class="product-prices text-center alt-font">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($products as $product)
+                        @foreach($orders as $product)
                         <tr>
-                            <td class="product-remove text-center">
-                                <a href="{{url('products/delete/'.$product->id)}}"  onclick="return confirm('do you want to delete?')" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Remove" aria-label="Remove"><i class="icon icon an an-times-l"></i></a>
-                                <a href="{{url('products/update/'.$product->id)}}" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Update" aria-label="Update"><i class="icon icon an an-pencil-l"></i></a>
-                            </td>
                             <td class="product-thumbnail text-center">
-                                <img src="assets/images/{{$product->product_thumb1}}" width="60" alt="" title="">
+                            {{$product->order_no}}
                             </td>
-                            <td class="product-name"><span class="text-in-stock">{{$product->product_name}}</span></td>
-                            <td class="product-name"><h6 class="mb-0">{{$product->product_sku}}</h6></td>
-                            <td class="stock text-center"><span class="text-in-stock">{{$product->product_stock}}</span></td>
+                            <td class="product-name">{{$product->order_date}}</td>
+                            <td class="stock text-center">
+                                    <span class="text-in-stock">{{$product->order_status}}</span>
+                            </td>
                             <td class="product-prices text-center"><span class="amount fw-500">Rp. {{number_format($product->product_price)}}</span></td>
+                            <td class="product-name">{{$product->order_remark}}</td>
+                            <td class="product-action text-center">
+                                @if($product->order_status == 'Waiting Confirmation')
+                                <a href="{{url('pesanan/confirm/'.$product->id)}}" class="btn btn-small btn-primary">Confirm</a>
+                                @else
+                                    @if($product->order_status == 'Pesanan diproses')
+                                        <a href="{{url('pesanan/ubah/'.$product->id)}}" class="btn btn-small btn-primary">Ubah Status</a>
+                                    @endif
+                                @endif
                         </tr>
                         @endforeach
                     </tbody>
