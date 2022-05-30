@@ -37,7 +37,7 @@
                             <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open me-3 d-lg-none"><i class="icon an an-times-l"></i><i class="icon an an-bars-l"></i></button>
                             <!--End Mobile Toggle-->
                             <!--Logo-->
-                            <div class="logo"><a href="index.html"><img class="logo-img" src="{{url('')}}/assets/images/logo.png" alt="Optimal Multipurpose eCommerce Bootstrap 5 Html Template" title="Optimal Multipurpose eCommerce Bootstrap 5 Html Template" /><span class="logo-txt d-none">Optimal</span></a></div>
+                            <div class="logo"><a href="{{url('')}}"><img class="logo-img" src="{{url('')}}/assets/images/logo.png" alt="Optimal Multipurpose eCommerce Bootstrap 5 Html Template" title="Optimal Multipurpose eCommerce Bootstrap 5 Html Template" /><span class="logo-txt d-none">Optimal</span></a></div>
                             <!--End Logo-->
                         </div>
                         <!--End Logo / Menu Toggle-->
@@ -100,12 +100,20 @@
             <!--End Header-->
             <!--Mobile Menu-->
             <div class="mobile-nav-wrapper" role="navigation">
-                <div class="closemobileMenu"><i class="icon an an-times-l pull-right"></i> Close Menu</div>
+                <div class="closemobileMenu"><i class="icon an an-times-l pull-right"></i>Menu</div>
                 <ul id="MobileNav" class="mobile-nav">
-                    <li class="lvl1 bottom-link"><a href="login.html">Home</a></li>
-                    <li class="lvl1 bottom-link"><a href="login.html">Product</a></li>
-                    <li class="lvl1 bottom-link"><a href="login.html">Login</a></li>
-                    <li class="lvl1 bottom-link"><a href="register.html">Signup</a></li>
+                    <li class="lvl1 bottom-link"><a href="{{url('')}}">Home</a></li>
+                    <li class="lvl1 bottom-link"><a href="{{url('/product')}}">Product</a></li>
+                    @if(Auth::check())
+                        @if(Auth::user()->level=='admin')
+                        <li class="lvl1 bottom-link"><a href="{{url('/product')}}">list Products</a></li>
+                        <li class="lvl1 bottom-link"><a href="{{url('/products/type')}}">Product Type</a></li>
+                        <li class="lvl1 bottom-link"><a href="{{url('/pesanan')}}">Pesanan</a></li>
+                        @else
+                        <li class="lvl1 bottom-link"><a href="{{url('/account')}}">Account</a></li>
+                    @endif
+
+                    @endif
                     <li class="help bottom-link"><b>NEED HELP?</b><br>Call: 0852-9580-8597</li>
                 </ul>
             </div>
