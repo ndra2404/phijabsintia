@@ -43,7 +43,7 @@ class ProductController extends Controller
 
             foreach ($request->file('filename') as $image) {
                 $extension = $image->getClientOriginalName();
-                $filenames = date('Ymdhis')."-".'.' . $extension;
+                $filenames = date('Ymdhis')."-".'p.' . $extension;
                 $image->move($destinationPath, $filenames);
                 $banner = new ProductImageModel;
                 $banner->product_id = $productid;
@@ -95,7 +95,7 @@ class ProductController extends Controller
             if($request->file('filename') != null){
                 foreach ($request->file('filename') as $image) {
                     $extension = $image->getClientOriginalName();
-                    $filenames = date('Ymdhis')."-".'.' . $extension;
+                    $filenames = date('Ymdhis')."-".'p.' . $extension;
                     $image->move($destinationPath, $filenames);
                     $banner = new ProductImageModel;
                     $banner->product_id = $productid;
