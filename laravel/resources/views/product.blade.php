@@ -53,7 +53,7 @@
                                             <!--Start Product Image-->
                                             <div class="product-image">
                                                 <!--Start Product Image-->
-                                                <a href="product-layout1.html" class="product-img">
+                                                <a href="{{url('/product/'.$product->id)}}" class="product-img">
                                                     <!-- image -->
                                                     <img class="primary blur-up lazyloaded" data-src="assets/images/{{$product->product_thumb1}}" src="assets/images/{{$product->product_thumb1}}" alt="image" title="">
                                                     <!-- End image -->
@@ -74,7 +74,7 @@
                                                         </li>
                                                         <!--End Cart Button-->
                                                         <!--Quick View Button-->
-                                                        <li><a class="btn-icon quick-view-popup quick-view" href="javascript:void(0)" data-toggle="modal" data-target="#content_quickview"><i class="icon an an-search-l"></i> <span class="tooltip-label top">Quick View</span></a></li>
+                                                        <!-- <li><a class="btn-icon quick-view-popup quick-view" href="javascript:void(0)" data-toggle="modal" data-target="#content_quickview"><i class="icon an an-search-l"></i> <span class="tooltip-label top">Quick View</span></a></li> -->
                                                         <!--End Quick View Button-->
                                                     </ul>
                                                 </div>
@@ -85,7 +85,7 @@
                                             <div class="product-details text-center">
                                                 <!--Product Name-->
                                                 <div class="product-name text-uppercase">
-                                                    <a href="product-layout1.html">{{$product->product_name}}</a>
+                                                    <a href="{{url('/product/'.$product->id)}}">{{$product->product_name}}</a>
                                                 </div>
                                                 <!--End Product Name-->
                                                 <!--Product Price-->

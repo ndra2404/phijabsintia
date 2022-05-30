@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index');
 Route::get('/product', 'App\Http\Controllers\HomeController@product');
+Route::get('/product/{id}', 'App\Http\Controllers\HomeController@productbyid');
 Route::any('/login', 'App\Http\Controllers\HomeController@login');
 Route::any('/doregister', 'App\Http\Controllers\HomeController@doregister');
 Route::any('/logout', 'App\Http\Controllers\HomeController@logout');

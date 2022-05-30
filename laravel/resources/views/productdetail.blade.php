@@ -17,42 +17,26 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="product-details-img product-horizontal-style clearfix mb-3 mb-md-0">
                             <div class="zoompro-wrap product-zoom-right w-100 p-0">
-                                <div class="zoompro-span"><img id="zoompro" class="zoompro" src="assets/images/products/product-4.jpg" data-zoom-image="assets/images/products/product-4.jpg" alt="product" /></div>
-                                <div class="product-labels d-none"><span class="lbl pr-label1">new</span></div>
-                                <div class="product-buttons">
-                                    <a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="mfpbox mfp-with-anim btn rounded-0 popup-video d-none"><i class="icon an an-video"></i><span class="tooltip-label">Watch Video</span></a>
-                                    <a href="#" class="btn rounded-0 prlightbox"><i class="icon an an-expand-l-arrows"></i><span class="tooltip-label">Zoom Image</span></a>
-                                </div>
+                                <div class="zoompro-span"><img id="zoompro" class="zoompro" src="{{url('')}}/assets/images/{{$product->product_thumb1}}" data-zoom-image="{{url('')}}/assets/images/{{$product->product_thumb1}}" alt="product" /></div>
+
                             </div>
                             <div class="product-thumb product-horizontal-thumb w-100 pt-2 mt-1">
                                 <div id="gallery" class="product-thumb-style1 overflow-hidden">
-                                    <a data-image="assets/images/products/product-4.jpg" data-zoom-image="assets/images/products/product-4.jpg" class="slick-slide slick-cloned active">
-                                        <img class="blur-up lazyload" data-src="assets/images/products/product-4.jpg" src="assets/images/products/product-4.jpg" alt="product" />
+                                    <a data-image="{{url('/assets/images/'.$product->product_thumb1)}}" data-zoom-image="{{url('/assets/images/'.$product->product_thumb1)}}" class="slick-slide slick-cloned active">
+                                        <img class="blur-up lazyload" data-src="{{url('/assets/images/'.$product->product_thumb1)}}" src="{{url('/assets/images/'.$product->product_thumb1)}}" alt="product" />
                                     </a>
-                                    <a data-image="assets/images/products/product-4-1.jpg" data-zoom-image="assets/images/products/product-4-1.jpg" class="slick-slide slick-cloned">
-                                        <img class="blur-up lazyload" data-src="assets/images/products/product-4-1.jpg" src="assets/images/products/product-4-1.jpg" alt="product" />
+                                    @foreach($images as $image)
+                                    <a data-image="{{url('')}}/assets/images/{{$image->product_image}}" data-zoom-image="{{url('')}}/assets/images/{{$image->product_image}}" class="slick-slide slick-cloned active">
+                                        <img class="blur-up lazyload" data-src="{{url('')}}/assets/images/{{$image->product_image}}" src="{{url('')}}/assets/images/{{$image->product_image}}" alt="product" />
                                     </a>
-                                    <a data-image="assets/images/products/product-4-2.jpg" data-zoom-image="assets/images/products/product-4-2.jpg" class="slick-slide slick-cloned">
-                                        <img class="blur-up lazyload" data-src="assets/images/products/product-4-2.jpg" src="assets/images/products/product-4-2.jpg" alt="product" />
-                                    </a>
-                                    <a data-image="assets/images/products/product-4-3.jpg" data-zoom-image="assets/images/products/product-4-3.jpg" class="slick-slide slick-cloned">
-                                        <img class="blur-up lazyload" data-src="assets/images/products/product-4-3.jpg" src="assets/images/products/product-4-3.jpg" alt="product" />
-                                    </a>
-                                    <a data-image="assets/images/products/product-4-4.jpg" data-zoom-image="assets/images/products/product-4-4.jpg" class="slick-slide slick-cloned">
-                                        <img class="blur-up lazyload" data-src="assets/images/products/product-4-4.jpg" src="assets/images/products/product-4-4.jpg" alt="product" />
-                                    </a>
-                                    <a data-image="assets/images/products/product-4-5.jpg" data-zoom-image="assets/images/products/product-4-5.jpg" class="slick-slide slick-cloned">
-                                        <img class="blur-up lazyload" data-src="assets/images/products/product-4-5.jpg" src="assets/images/products/product-4-5.jpg" alt="product" />
-                                    </a>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="lightboximages">
-                                <a href="assets/images/products/product-4.jpg" data-size="1000x1280"></a>
-                                <a href="assets/images/products/product-4-1.jpg" data-size="1000x1280"></a>
-                                <a href="assets/images/products/product-4-2.jpg" data-size="1000x1280"></a>
-                                <a href="assets/images/products/product-4-3.jpg" data-size="1000x1280"></a>
-                                <a href="assets/images/products/product-4-4.jpg" data-size="1000x1280"></a>
-                                <a href="assets/images/products/product-4-5.jpg" data-size="1000x1280"></a>
+                                <a href="{{url('assets/images/'.$product->product_thumb1)}}" data-size="1000x1280"></a>
+                                @foreach($images as $image)
+                                <a href="{{url('assets/images/'.$image->product_image)}}" data-size="1000x1280"></a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -61,26 +45,22 @@
                         <!-- Product Info -->
                         <div class="product-single__meta">
                             <div class="title-nav d-flex justify-content-between">
-                                <h1 class="product-single__title pe-5">Product Standard</h1>
+                                <h1 class="product-single__title pe-5">{{$product->product_name}}</h1>
                             </div>
                             <!-- Product Reviews -->
-                            <div class="product-review mb-2"><a class="reviewLink d-flex-center" href="#reviews"><i class="an an-star"></i><i class="an an-star mx-1"></i><i class="an an-star"></i><i class="an an-star mx-1"></i><i class="an an-star-o"></i><span class="spr-badge-caption ms-2">16 Reviews</span></a></div>
+                            <!-- <div class="product-review mb-2"><a class="reviewLink d-flex-center" href="#reviews"><i class="an an-star"></i><i class="an an-star mx-1"></i><i class="an an-star"></i><i class="an an-star mx-1"></i><i class="an an-star-o"></i><span class="spr-badge-caption ms-2">16 Reviews</span></a></div> -->
                             <!-- End Product Reviews -->
                             <!-- Product Info -->
                             <div class="product-info">
-                                <p class="product-type">Vendor: <span>Bohemian France</span></p>
-                                <p class="product-type">Product Type: <span>Floral Top</span></p>
-                                <p class="product-sku">SKU: <span class="variant-sku">1416PT-1</span></p>
-                                <p class="product-cat">Category: <span><a href="#">All</a>, <a href="#">Fashion</a>, <a href="#">Tops</a>, <a href="#">Women</a>, <a href="#">New Arrivals</a></span></p>
-                                <p class="product-tags">Tags: <span><a href="#">$10 - $100</a>, <a href="#">Optimal</a>, <a href="#">Green</a>, <a href="#">XL</a>, <a href="#">Sale</a>, <a href="#">Women</a></span></p>
-                            </div>
+                                <p class="product-type">Product Type: <span>{{$product->product_type}}</span></p>
+                                <p class="product-sku">SKU: <span class="variant-sku">{{$product->product_sku}}</span></p>
+                           </div>
                             <!-- End Product Info -->
                             <!-- Product Price -->
                             <div class="product-single__price pb-0 mb-0">
                                 <span class="visually-hidden">Regular price</span>
                                 <span class="product-price__sale--single">
-                                    <span class="product-price-old-price d-none">$200.00</span><span class="product-price__price product-price__sale-d">$225.00</span>
-                                    <span class="discount-badge d-none"><span class="devider me-2">|</span><span>Save: </span><span class="product-single__save-amount"><span class="money">$99.00</span></span><span class="off ms-1">(<span>25</span>%)</span></span>
+                                    <span class="product-price__price product-price__sale-d">IDR. {{number_format($product->product_price)}}</span>
                                 </span>
 
                             </div>
@@ -88,15 +68,10 @@
                         </div>
                         <!-- End Product Info -->
                         <div class="product-single__description rte">
-                            <p class="mb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                            <ul class="checkmarkList">
-                                <li>Sed ut perspiciatis unde omnis iste natus error sit</li>
-                                <li>Lorem Ipsum is not simply random text.</li>
-                                <li>Size And Fit: The specifications for the model are: Height 5 feet 8 inches, bust 34 inches, waist 28 inches. The model is wearing size S.</li>
-                            </ul>
+                            {!! html_entity_decode($product->product_desc) !!}
+
                         </div>
                         <!-- Product Form -->
-                        <form method="post" action="#" class="product-form form-bordered hidedropdown">
                             <!-- Product Action -->
                             <div class="product-action w-100 clearfix">
                                 <div class="product-form__item--quantity d-flex-center mb-3">
@@ -106,17 +81,24 @@
                                         <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon an an-plus-r" aria-hidden="true"></i></a>
                                     </div>
                                     <div class="pro-stockLbl ms-3">
-                                        <span class="d-flex-center stockLbl instock"><i class="icon an an-check-cil"></i><span> In stock</span></span>
-                                        <span class="d-flex-center stockLbl preorder d-none"><i class="icon an an-clock-r"></i><span> Pre-order Now</span></span>
-                                        <span class="d-flex-center stockLbl outstock d-none"><i class="icon an an-times-cil"></i> <span>Sold out</span></span>
-                                        <span class="d-flex-center stockLbl lowstock d-none" data-qty="15"><i class="icon an an-exclamation-cir"></i><span> Order now, Only  <span class="items">10</span>  left!</span></span>
+                                        @if($product->product_stock > 0)
+                                            <span class="d-flex-center stockLbl instock"><i class="icon an an-check-cil"></i><span> In stock</span></span>
+                                        @else
+                                            <span class="d-flex-center stockLbl outstock"><i class="icon an an-times-cil"></i> <span>Sold out</span></span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row g-2">
                                     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                         <div class="product-form__item--submit">
-                                            <button type="submit" name="add" class="btn rounded-0 product-form__cart-submit mb-0"><span>Add to cart</span></button>
-                                            <button type="submit" name="add" class="btn rounded-0 product-form__sold-out mb-0 d-none" disabled="disabled">Sold out</button>
+                                        @if($product->product_stock > 0)
+                                        <form action="{{url('cart/'.$product->id)}}" method="post">
+                                            @csrf
+                                                <button type="submit" class="btn rounded-0 mb-0"><span>Add to cart</span></button>
+                                            </form>
+                                            @else
+                                            <button type="submit" name="add" class="btn rounded-0 product-form__sold-out mb-0" disabled="disabled">Sold out</button>
+                                        @endif
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +108,6 @@
                                 </div>
                             </div>
                             <!-- End Product Action -->
-                        </form>
                         <!-- End Product Form -->
                         <!-- Social Sharing -->
                         <!-- <div class="social-sharing d-flex-center mb-3">
@@ -139,8 +120,8 @@
                         </div> -->
                         <!-- End Social Sharing -->
                         <!-- Product Info -->
-                        <div class="shippingMsg"><i class="icon an an-clock-r" aria-hidden="true"></i>Estimated Delivery Between <b id="fromDate">Wed, May 1</b> and <b id="toDate">Tue, May 7</b>.</div>
-                        <div class="trustseal-img mt-4"><img src="assets/images/powerby-cards.jpg" alt="powerby cards" /></div>
+                        <!-- <div class="shippingMsg"><i class="icon an an-clock-r" aria-hidden="true"></i>Estimated Delivery Between <b id="fromDate">Wed, May 1</b> and <b id="toDate">Tue, May 7</b>.</div>
+                        <div class="trustseal-img mt-4"><img src="assets/images/powerby-cards.jpg" alt="powerby cards" /></div> -->
                         <!-- End Product Info -->
                     </div>
                 </div>

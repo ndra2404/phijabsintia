@@ -30,7 +30,14 @@ class HomeController extends Controller
         $products = ProductModel::all();
         return view('products',compact('products'));
     }
-
+    public function productbyid($id){
+        $product = ProductModel::
+        leftJoin('product_type','product_type.id','=','product.product_type_id')
+        ->select('product.*','product_type.product_type')
+        ->where('product.id',$id)->first();
+        $images = ProductImageModel::where('product_id',$id)->get();
+        return view('productdetail',compact('product','images'));
+    }
     public function login(Request $request){
         if ($request->isMethod('post')) {
             $credentials = $request->only('email', 'password');

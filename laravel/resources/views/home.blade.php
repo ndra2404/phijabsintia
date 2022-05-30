@@ -83,7 +83,6 @@
                         </div>
                         <div class="tabs-listing">
                             <div class="tab_container">
-                                <h3 class="tab_drawer_heading d_active body-font text-uppercase text-center" rel="tab1">Women <i class="an an-angle-down-r" aria-hidden="true"></i></h3>
                                 <div id="tab1" class="tab_content grid-products">
                                     <div class="productSlider">
                                         @foreach($data as $item)
@@ -91,7 +90,7 @@
                                             <!-- start product image -->
                                             <div class="product-image">
                                                 <!-- start product image -->
-                                                <a href="product-layout1.html" class="product-img">
+                                                <a href="{{url('/product/'.$item->id)}}" class="product-img">
                                                     <!-- image -->
                                                     <img class="primary blur-up lazyload" data-src="{{url('')}}/assets/images/{{$item->product_thumb1}}" src="{{url('')}}/assets/images/{{$item->product_thumb1}}" alt="image" title="">
                                                     <!-- End image -->
@@ -121,7 +120,7 @@
                                             <div class="product-details text-center">
                                                 <!-- product name -->
                                                 <div class="product-name text-uppercase">
-                                                    <a href="product-layout1.html">{{$item->product_name}}</a>
+                                                    <a href="{{url('/product/'.$item->id)}}">{{$item->product_name}}</a>
                                                 </div>
                                                 <!-- End product name -->
                                                 <!-- product price -->
