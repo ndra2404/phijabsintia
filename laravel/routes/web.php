@@ -49,3 +49,4 @@ Route::any('/products/type/update/{id}', 'App\Http\Controllers\ProductTypeContro
 Route::get('/pesanan', 'App\Http\Controllers\PesananController@index');
 Route::any('/pesanan/ubah/{id}', 'App\Http\Controllers\PesananController@detail');
 Route::any('/pesanan/confirm/{id}', 'App\Http\Controllers\PesananController@confirm');
+Route::get('/pesanan/print', 'App\Http\Controllers\PesananController@print');

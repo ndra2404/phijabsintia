@@ -33,6 +33,14 @@
                                             </div>
                                         </li>
                                         <li class="collection-view ms-sm-auto">
+                                            <div class="filters-toolbar__item">
+                                                <form class="form-inline">
+                                                <label for="SortBy" class="hidden">Sort by:</label>
+                                                <input name="qcari" type="text"class="filters-toolbar__input filters-toolbar__input--sort">
+                                                </form>
+                                            </div>
+                                        </li>
+                                        <li class="filters-sort ms-auto ms-sm-0">
                                             <div class="filters-toolbar__item collection-view-as d-flex align-items-center me-3 me-lg-0">
                                                 <a href="javascript:void(0)" class="change-view prd-grid change-view--active"><i class="icon an an-th" aria-hidden="true"></i><span class="tooltip-label">Grid View</span></a>
                                                 <a href="javascript:void(0)" class="change-view prd-list"><i class="icon an an-th-list" aria-hidden="true"></i><span class="tooltip-label">List View</span></a>

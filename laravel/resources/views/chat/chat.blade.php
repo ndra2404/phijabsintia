@@ -76,7 +76,7 @@
                                 <div id="dashboard" class="tab-pane fade active show">
                                     <form action="{{url('chat/send/2')}}" method="post">
                                         @csrf
-                                        <div class="row" id="cpesan">
+                                        <div class="row" id="cpesan" style="height: 300px;overflow-y: scroll;">
                                         </div>
                                         <div class="row reply">
                                             <div class="col-sm-11 col-xs-11 reply-main"><textarea name="message" class="form-control" rows="1" id="comment"></textarea></div>

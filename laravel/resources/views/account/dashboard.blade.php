@@ -24,7 +24,7 @@
                             <ul class="nav flex-column bg-light h-100 dashboard-list" role="tablist">
                                 <li><a class="nav-link active" data-bs-toggle="tab" href="#dashboard">Dashboard</a></li>
                                 <li><a class="nav-link" data-bs-toggle="tab" href="#orders">Orders</a></li>
-                                <li><a class="nav-link" data-bs-toggle="tab" href="#orderstracking">Orders tracking</a></li>
+                                <li><a class="nav-link" data-bs-toggle="tab" href="#orderstracking">My Review</a></li>
                             </ul>
                             <!-- End Nav tabs -->
                         </div>
@@ -40,26 +40,7 @@
                                                 Selamat Datang di phijab.id
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-6">
-                                            <ul class="profile-order mt-3 mt-lg-0">
-                                                <li>
-                                                    <h3 class="mb-1">16</h3>
-                                                    All Orders
-                                                </li>
-                                                <li>
-                                                    <h3 class="mb-1">02</h3>
-                                                    Awaiting Payments
-                                                </li>
-                                                <li>
-                                                    <h3 class="mb-1">00</h3>
-                                                    Awaiting Shipment
-                                                </li>
-                                                <li>
-                                                    <h3 class="mb-1">01</h3>
-                                                    Awaiting Delivery
-                                                </li>
-                                            </ul>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <!-- End Dashboard -->
@@ -103,6 +84,49 @@
                                 </div>
                                 <!-- End Orders -->
 
+                                <div id="orderstracking" class="product-order tab-pane fade">
+                                    <h3>My Review</h3>
+                                    <div class="table-responsive order-table">
+                                        <table class="table table-bordered table-hover align-middle text-center mb-0">
+                                            <thead class="alt-font">
+                                                <tr>
+                                                    <th>Order</th>
+                                                    <th>Product</th>
+                                                    <th>Date</th>
+                                                    <th>Bintang</th>
+                                                    <th>Review</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($orderReview as $order)
+                                                <tr>
+                                                    <td>{{ $loop->index+1 }}</td>
+                                                    <td>{{$order->order_no}}</td>
+                                                    <td>{{$order->order_date}}</td>
+                                                    <td class="text-success">
+                                                        @for($i=1;$i<=5;$i++)
+                                                            <span class="an an-star" style="color:
+                                                            @if($i<=$order->bintang)
+                                                            orange
+                                                            @else
+                                                            gray
+                                                            @endif
+                                                            "></span>
+                                                        @endfor
+                                                    </td>
+                                                    <td></td>
+                                                    <td>
+
+                                                            <a class="link-underline view" href="{{url('account/review/'.$order->id)}}">Review</a>
+
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                             <!-- End Tab panes -->
                         </div>

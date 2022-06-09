@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\OrderModel;
 use App\Models\OrderDetailModel;
+use PDF;
 
 class PesananController extends Controller
 {
@@ -37,5 +38,13 @@ class PesananController extends Controller
         ->select('orders_detail.*','products.product_name as product_name','product_type.product_type','product_sku')
         ->get();
         return view('pesanan.detail',compact('data','orderdetail'));
+    }
+    public function print(){
+        $orders = OrderModel::all();
+        $pdf = PDF::loadview('pesanan.print',['orders'=>$orders]);
+    	return $pdf->stream("laporan-".date('Ymd hi').".pdf");
+    }
+    public function review($id, Request $request){
+
     }
 }

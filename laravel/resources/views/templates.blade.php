@@ -524,7 +524,12 @@
                 event.preventDefault();
 
                 let pesan = $("#comment").val();
-                let sender = $("#senderid").val();
+                @if(Auth::user()->level=='admin')
+                    let senderid = $("#senderid").val();
+                @else
+                    let senderid = '{{Auth::user()->id}}';
+                    $("#senderid").val(senderid)
+                @endif
                 let message = $("input[name=message]").val();
                 let _token   = $('meta[name="csrf-token"]').attr('content');
 
@@ -534,12 +539,12 @@
                 data:{
                     message:pesan,
                     level:"{{Auth::user()->level}}",
-                    sender:sender,
+                    sender:senderid,
                     _token: _token
                 },
                 success:function(response){
                     if(response.status=='success') {
-                        getlistpesan($("#senderid").val())
+                        getlistpesan(senderid)
                         $("#comment").val("")
                     }
                 },
